@@ -49,8 +49,8 @@ function initiateRandomArray(size, range){
   return randomArray;
 }
 
-let randomArray= initiateRandomArray(10, 250);
-console.log(randomArray);
+let randomArray= initiateRandomArray(20, 50);
+//console.log(randomArray);
 // qSort(randomArray);
 // console.log(randomArray);
 // qSort(dataSet); 
@@ -103,3 +103,60 @@ function merge(leftArr, rightArr, array, counter){
 }
 // let result = mergeSort(randomArray); 
 
+function findMin(randomArray){
+  let length = randomArray.length;
+  let min = Number.MAX_SAFE_INTEGER;
+  for(let i = 0; i < length; i++){
+    if(randomArray[i] < min){
+      min = randomArray[i];
+    }
+  }
+  return min;
+}
+function findMax(randomArray){
+  let length = randomArray.length;
+  let max = Number.MIN_SAFE_INTEGER;
+  for(let i = 0; i < length; i++){
+    if(randomArray[i] > max){
+      max = randomArray[i];
+    }
+  }
+  return max;
+}
+
+function bucketSort(randomArray, min, max){
+  let bucketLength = 1 + max - min;
+  let bucketArray = new Array(bucketLength);
+  const length = randomArray.length;
+  let position;
+  for(let i = 0; i < length; i++){
+    position = randomArray[i] - min;
+    bucketArray[position] === undefined ? bucketArray[position] = 1 : bucketArray[position]+=1;
+  }
+  let counter = 0; 
+  for(let i = 0; i < bucketLength; i++){
+    while(bucketArray[i] > 0){
+      randomArray[counter] = i + min;
+      counter++;
+      bucketArray[i]--;
+    }
+  }
+  return randomArray;
+}
+//randomArray = bucketSort(randomArray, findMin(randomArray), findMax(randomArray));
+
+console.log(randomArray);
+
+function shuffleInPlace(array, iterations){
+  let indexOne;
+  let indexTwo;
+  let length = array.length;
+  for(let i = 0; i < iterations; i++){
+    indexOne = Math.floor(Math.random() * length);
+    indexTwo = Math.floor(Math.random() * length);
+    swap(array, indexOne, indexTwo);
+  }
+  return array;
+}
+randomArray = shuffleInPlace(randomArray, 1);
+console.log(randomArray);
