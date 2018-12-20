@@ -145,7 +145,7 @@ function bucketSort(randomArray, min, max){
 }
 //randomArray = bucketSort(randomArray, findMin(randomArray), findMax(randomArray));
 
-console.log(randomArray);
+// console.log(randomArray);
 
 function shuffleInPlace(array, iterations){
   let indexOne;
@@ -159,4 +159,55 @@ function shuffleInPlace(array, iterations){
   return array;
 }
 randomArray = shuffleInPlace(randomArray, 1);
-console.log(randomArray);
+// console.log(randomArray);
+
+
+
+
+// input:['two dogs', 'three cats', 'funk, a history', 'minimum vals and their pals']
+// output:['funk...', 'min...', 'three...', 'two...'] 
+//want to iterate over list, looking at first character of each title and comparing to first character of the next, if === then compare the following values and sort that way
+
+
+
+function sortingBooks(arr){
+  if(arr.length <= 1){
+    return arr; 
+  }
+
+  let middle = Math.floor(arr.length/2); 
+  let leftArr = arr.slice(0, middle); 
+  let rightArr = arr.slice(middle,arr.length); 
+  leftArr = sortingBooks(leftArr); 
+  rightArr = sortingBooks(rightArr); 
+
+  return mergeBooks(leftArr, rightArr, arr); 
+
+}
+
+function mergeBooks(leftArr, rightArr, array){
+  let leftIndex = 0; 
+  let rightIndex = 0; 
+  let outputIndex = 0; 
+  
+  while( leftIndex < leftArr.length && rightIndex < rightArr.length){
+    if(leftArr[leftIndex] < rightArr[rightIndex]){
+      array[outputIndex++] = leftArr[leftIndex++]; 
+
+    }
+    else {
+      array[outputIndex++] = rightArr[rightIndex++]; 
+    }
+  }
+  for(let i = leftIndex; i<leftArr.length; i++ ){
+    array[outputIndex++]=leftArr[i]; 
+  }
+  for(let i = rightIndex; i<rightArr.length; i++ ){
+    array[outputIndex++]=rightArr[i]; 
+  }
+  return array;
+} 
+ 
+
+const bookArray = ['do androids','the hitch', 'something wicked', 'pride pred', 'i wish', 'the curious'];
+console.log(sortingBooks(bookArray));
