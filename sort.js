@@ -54,3 +54,42 @@ console.log(randomArray);
 qSort(randomArray);
 console.log(randomArray);
 // qSort(dataSet); 
+
+function mergeSort(arr){
+  if(arr.length <= 1){
+    return arr; 
+  }
+
+  let middle = Math.floor(arr.length/2); 
+  let leftArr = arr.slice(0, middle); 
+  let rightArr = arr.slice(middle,arr.length); 
+
+  leftArr = mergeSort(leftArr); 
+  rightArr = mergeSort(rightArr); 
+
+  return merge(leftArr, rightArr, arr); 
+
+}
+
+function merge(leftArr, rightArr, array){
+  let leftIndex = 0; 
+  let rightIndex = 0; 
+  let outputIndex = 0; 
+
+  while( leftIndex < leftArr.length && rightIndex < rightArr.length){
+    if(leftArr[leftIndex] < rightArr[rightIndex]){
+      array[outputIndex++] = leftArr[leftIndex++]; 
+    }
+    else {
+      array[outputIndex++] = rightArr[rightIndex++]; 
+    }
+  }
+  //for loops are for iterating through whatever side has remaining values
+  for(let i = leftIndex; i<leftArr.length; i++ ){
+    array[outputIndex++]=leftArr[i]; 
+  }
+  for(let i = rightIndex; i<rightArr.length; i++ ){
+    array[outputIndex++]=rightArr[i]; 
+  }
+  return array; 
+}
