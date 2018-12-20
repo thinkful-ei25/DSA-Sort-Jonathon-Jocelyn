@@ -51,11 +51,13 @@ function initiateRandomArray(size, range){
 
 let randomArray= initiateRandomArray(10, 250);
 console.log(randomArray);
-qSort(randomArray);
-console.log(randomArray);
+// qSort(randomArray);
+// console.log(randomArray);
 // qSort(dataSet); 
 
 function mergeSort(arr){
+  let counter = 0;
+  
   if(arr.length <= 1){
     return arr; 
   }
@@ -63,22 +65,25 @@ function mergeSort(arr){
   let middle = Math.floor(arr.length/2); 
   let leftArr = arr.slice(0, middle); 
   let rightArr = arr.slice(middle,arr.length); 
-
+  counter+=1; 
   leftArr = mergeSort(leftArr); 
   rightArr = mergeSort(rightArr); 
 
-  return merge(leftArr, rightArr, arr); 
+  return merge(leftArr, rightArr, arr, counter); 
 
 }
 
-function merge(leftArr, rightArr, array){
+function merge(leftArr, rightArr, array, counter){
   let leftIndex = 0; 
   let rightIndex = 0; 
   let outputIndex = 0; 
+  
 
   while( leftIndex < leftArr.length && rightIndex < rightArr.length){
+    counter+=1; 
     if(leftArr[leftIndex] < rightArr[rightIndex]){
       array[outputIndex++] = leftArr[leftIndex++]; 
+
     }
     else {
       array[outputIndex++] = rightArr[rightIndex++]; 
@@ -87,9 +92,14 @@ function merge(leftArr, rightArr, array){
   //for loops are for iterating through whatever side has remaining values
   for(let i = leftIndex; i<leftArr.length; i++ ){
     array[outputIndex++]=leftArr[i]; 
+    counter+=1; 
   }
   for(let i = rightIndex; i<rightArr.length; i++ ){
     array[outputIndex++]=rightArr[i]; 
+    counter+=1; 
   }
+  console.log(counter); 
   return array; 
 }
+// let result = mergeSort(randomArray); 
+
